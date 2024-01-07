@@ -57,7 +57,7 @@ public class TransactionController {
         // Convert the date String to a LocalDate object
         LocalDate requestedDate = LocalDate.parse(date,formatter);
 
-        // Fetch records from your data source based on the requested date
+        // Fetch records from your database based on the requested date
         Double profitOrLoss = transactionService.findProfitLossByDate(requestedDate).doubleValue();
 
         String responseMessage;
@@ -69,23 +69,9 @@ public class TransactionController {
             responseMessage = "No Profit, No Loss on " + date+" ";
         }
 
-        // Return response with appropriate HTTP status
+
         return new ResponseEntity<>(responseMessage, HttpStatus.OK);
 
     }
-
-    @GetMapping("/getrecords")
-    public ResponseEntity<List<Transaction>> getRecordsBetweendates(  @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
-                                                      @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
-
-        List<Transaction> transactions = transactionService.findByTransactionDateBetween(startDate, endDate);
-
-        if (transactions.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-
-        return new ResponseEntity<>(transactions, HttpStatus.OK);
-    }
-
 
 }

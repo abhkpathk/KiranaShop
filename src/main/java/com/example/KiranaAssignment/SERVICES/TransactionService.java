@@ -13,7 +13,5 @@ public interface TransactionService {
 
     List<Transaction> findTransactionByDate(LocalDate transactionDate);
 
-    List<Transaction> findByTransactionDateBetween(LocalDate startDate, LocalDate endDate);
-
     BigDecimal findProfitLossByDate(LocalDate transactionDate);
 }

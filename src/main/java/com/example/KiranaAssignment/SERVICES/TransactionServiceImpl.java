@@ -6,8 +6,6 @@ import com.example.KiranaAssignment.Exception.InvalidTransactionRequestException
 import com.example.KiranaAssignment.Exception.TransactionProcessingException;
 import com.example.KiranaAssignment.REPOSITORY.TransactionRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
@@ -63,7 +61,6 @@ public class TransactionServiceImpl implements TransactionService {
            {
                throw new TransactionProcessingException("Transaction processing failed: ");
            }
-//        BigDecimal convertedAmount = BigDecimal.valueOf(exchangeRateForINR);
            BigDecimal amountInINR = (transactionRequest.getAmount());
            BigDecimal convertedAmount = exchangeRateForINR.multiply(amountInINR).setScale(2, RoundingMode.HALF_UP);
            trans.setAmount(convertedAmount);
@@ -96,12 +93,7 @@ public class TransactionServiceImpl implements TransactionService {
 
     }
 
-    @Override
-    public List<Transaction> findByTransactionDateBetween(LocalDate startDate, LocalDate endDate) {
-        return null;
-    }
-
-    public BigDecimal findProfitLossByDate(LocalDate Trasaction_Date) {
+        public BigDecimal findProfitLossByDate(LocalDate Trasaction_Date) {
         List<Transaction> TransactionForProfitLoss = findTransactionByDate(Trasaction_Date);
 
         double profitOrLoss = 0;
